@@ -8,6 +8,8 @@ let context;
 
 function drawGenerativeDesign() {
     setup();
+    generateRandomLines();
+    generateRandomConcentricCircles();
     generateRandomClusters();
 }
 
@@ -43,6 +45,36 @@ function generateRandomClusters() {
         let x = Utils.randomNumber(100, clusterAreaWidth);
         let y = Utils.randomNumber(100, clusterAreaHeight);
         drawCluster(x, y, 10, 50);
+    }
+}
+
+function generateRandomLines() {
+    for (let i = 0; i < 10; i++) {
+        let x1 = Utils.randomNumber(0, context.canvas.width);
+        let y1 = Utils.randomNumber(0, context.canvas.height);
+        let x2 = Utils.randomNumber(0, context.canvas.width);
+        let y2 = Utils.randomNumber(0, context.canvas.height);
+
+        let color = Utils.hsl(Utils.randomNumber(0, 360), 100, 50);
+        Utils.drawLine(x1, y1, x2, y2, color);
+    }
+}
+
+function generateRandomConcentricCircles() {
+    let centerX = context.canvas.width / 2;
+    let centerY = context.canvas.height / 2;
+
+    let numCircles = 100;
+    let maxRadius = 150;
+    let increment = maxRadius / numCircles;
+
+    for (let i = 0; i < numCircles; i++) {
+        let radius = increment * (i + 1);
+        let hue = Utils.randomNumber(0, 360);
+        
+        context.strokeStyle = Utils.hsl(hue, 100, 50);
+        context.lineWidth = 4;
+        Utils.strokeCircle(centerX, centerY, radius);
     }
 }
 
