@@ -48,15 +48,15 @@ function drawTetrisPieces() {
     // Create foreground pieces
     for (let i = 0; i < 25; i++) {
         let piece = createRandomPiece();
-        piece.speed = 2 + Math.random() * 2; // Foreground pieces are faster
+        piece.speed = 2 + Math.random() * 2;
         foregroundPieces.push(piece);
     }
 
     // Create background pieces
     for (let i = 0; i < 15; i++) {
         let piece = createRandomPiece();
-        piece.speed = 1 + Math.random() * 1.5; // Background pieces are slower
-        piece.color = adjustLightness(piece.color, -40); // Darken the color
+        piece.speed = 1 + Math.random() * 1.5;
+        piece.color = adjustLightness(piece.color, -40);
         backgroundPieces.push(piece);
     }
 
@@ -67,10 +67,10 @@ function drawTetrisPieces() {
 function handleScroll(event) {
     if (event.deltaY > 0) {
         // Scroll down - decrease scaling
-        scaleFactor = Math.max(0.5, scaleFactor - 0.05); // Limit scale factor to a minimum
+        scaleFactor = Math.max(0.5, scaleFactor - 0.05);
     } else {
         // Scroll up - increase scaling
-        scaleFactor = Math.min(2, scaleFactor + 0.05); // Limit scale factor to a maximum
+        scaleFactor = Math.min(2, scaleFactor + 0.05);
     }
 
     // Re-render with new scale factor
@@ -83,8 +83,8 @@ function createRandomPiece() {
     return {
         option: option,
         x: Math.random() * (width - squareSize * 3),
-        y: Math.random() * -200, // Random starting height above the screen
-        speed: 2 + Math.random() * 2, // Default speed, unaffected by scale
+        y: Math.random() * -200,
+        speed: 2 + Math.random() * 2,
         width: calculatePieceWidth(option),
         height: squareSize * 2,
         color: getPieceColor(option),
@@ -121,8 +121,8 @@ function drawPieces(pieces, scale) {
         let piece = pieces[i];
 
         // Calculate temporary position shift based on mouse position
-        let offsetX = (mouseX / width - 0.5) * 50; // Subtle horizontal shift
-        let offsetY = (mouseY / height - 0.5) * 50; // Subtle vertical shift
+        let offsetX = (mouseX / width - 0.5) * 50;
+        let offsetY = (mouseY / height - 0.5) * 50;
 
         // Apply temporary shift to piece position
         let tempX = piece.x + offsetX;
@@ -143,8 +143,8 @@ function updatePiecePositions(pieces) {
 
         // Reset piece when it falls off-screen
         if (piece.y >= height) {
-            piece.y = Math.random() * -200; // Reset above the screen
-            piece.x = Math.random() * (width - piece.width); // Randomize horizontal position
+            piece.y = Math.random() * -200;
+            piece.x = Math.random() * (width - piece.width);
         }
     }
 }
@@ -213,18 +213,17 @@ function drawTetrisPiece(piece) {
 
 // Draw background text with scaling
 function drawBackgroundText(scale) {
-    // Calculate offset for reverse movement
-    let offsetX = (0.5 - mouseX / width) * 30; // Reverse horizontal shift
-    let offsetY = (0.5 - mouseY / height) * 30; // Reverse vertical shift
+    let offsetX = (0.5 - mouseX / width) * 30;
+    let offsetY = (0.5 - mouseY / height) * 30;
 
     context.fillStyle = "rgba(255, 255, 255, 0.7)";
-    context.font = `${80 * scale}px Arial`; // Apply scale to text size
+    context.font = `${80 * scale}px Arial`;
     context.textAlign = "center";
     context.textBaseline = "middle";
     context.fillText("ERNEST MAROT", width / 2 + offsetX, height / 2 + offsetY);
 }
 
-// Example Piece Drawing Functions (adjusted for scaling)
+// Example Piece Drawing Functions
 function drawPieceT(startX, startY, color, scale) {
     const s = squareSize * scale;
     drawSquare(startX, startY, s, color);
